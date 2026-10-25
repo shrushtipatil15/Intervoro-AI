@@ -1,0 +1,210 @@
+/* ==========================
+   Interview Page
+========================== */
+
+.page-container {
+    min-height: 100vh;
+    background: #0b1220;
+    padding: 120px 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "Inter", sans-serif;
+}
+
+.interview-container {
+    width: 100%;
+    max-width: 900px;
+    background: #111827;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.35);
+}
+
+.interview-container h1 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.interview-container h3 {
+    text-align: center;
+    color: #8fa4c3;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+
+/* ==========================
+   Question Card
+========================== */
+
+.question-card {
+    background: #1b2537;
+    border: 1px solid #26344d;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.question-card p {
+    color: #ffffff;
+    font-size: 19px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+
+/* ==========================
+   Textarea
+========================== */
+
+.question-card textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+    border: 1px solid #32415c;
+    border-radius: 12px;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+    padding: 16px;
+    outline: none;
+    transition: .3s;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.question-card textarea:focus {
+    border-color: #4f7cff;
+    box-shadow: 0 0 12px rgba(79,124,255,.4);
+}
+
+.question-card textarea::placeholder {
+    color: #8a9bb8;
+}
+
+
+/* ==========================
+   Buttons
+========================== */
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+
+.prev-btn,
+.next-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.prev-btn {
+    background: #27364d;
+    color: white;
+}
+
+.prev-btn:hover:not(:disabled) {
+    background: #364965;
+}
+
+.prev-btn:disabled {
+    background: #1a2435;
+    color: #6c7a92;
+    cursor: not-allowed;
+}
+
+.next-btn {
+    background: linear-gradient(135deg,#4f7cff,#2563eb);
+    color: white;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(79,124,255,.35);
+}
+
+
+/* ==========================
+   Progress Badge
+========================== */
+
+.progress {
+    display: inline-block;
+    background: rgba(79,124,255,.15);
+    color: #7ea6ff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 15px;
+    margin: 0 auto 25px;
+    font-weight: 600;
+}
+
+.progress-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* ==========================
+   Loading
+========================== */
+
+.loading {
+    min-height: 100vh;
+    background: #0b1220;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:768px){
+
+    .page-container{
+        padding:100px 15px 40px;
+    }
+
+    .interview-container{
+        padding:25px;
+    }
+
+    .interview-container h1{
+        font-size:28px;
+    }
+
+    .question-card{
+        padding:20px;
+    }
+
+    .question-card p{
+        font-size:17px;
+    }
+
+    .button-group{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .prev-btn,
+    .next-btn{
+        width:100%;
+    }
+
+}

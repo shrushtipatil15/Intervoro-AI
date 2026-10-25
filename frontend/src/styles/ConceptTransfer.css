@@ -1,0 +1,311 @@
+/* ConceptTransfer.css — Dark Theme */
+
+.concept-transfer-page {
+    min-height: 100vh;
+    padding: 50px 24px;
+    background:
+        radial-gradient(ellipse at 10% 0%, rgba(99, 72, 220, 0.18), transparent 38%),
+        radial-gradient(ellipse at 95% 90%, rgba(51, 83, 190, 0.15), transparent 35%),
+        #080b18;
+    color: #e8ebff;
+    font-family: "Times New Roman", serif;
+    box-sizing: border-box;
+}
+
+.concept-transfer-page *,
+.concept-transfer-page *::before,
+.concept-transfer-page *::after {
+    box-sizing: border-box;
+}
+
+.concept-transfer-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(17, 22, 43, 0.94);
+    border: 1px solid rgba(139, 125, 255, 0.2);
+    border-radius: 22px;
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.35);
+}
+
+.concept-transfer-container h1 {
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 22px rgba(129, 105, 255, 0.2);
+}
+
+.concept-transfer-intro {
+    margin: 0 0 32px;
+    color: #a8b0cc;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.concept-transfer-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 26px;
+    padding: 24px;
+    background: rgba(25, 31, 57, 0.8);
+    border: 1px solid #2b3456;
+    border-radius: 16px;
+}
+
+.concept-transfer-container label {
+    color: #e1e4ff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.concept-transfer-container input,
+.concept-transfer-container select {
+    width: 100%;
+    min-height: 49px;
+    padding: 13px 15px;
+    border: 1px solid #343e63;
+    border-radius: 10px;
+    outline: none;
+    background: #0d1225;
+    color: #f0f1ff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.concept-transfer-container input::placeholder {
+    color: #7f89a9;
+}
+
+.concept-transfer-container select option {
+    background: #11172c;
+    color: #f0f1ff;
+}
+
+.concept-transfer-container input:focus,
+.concept-transfer-container select:focus {
+    border-color: #8b78ff;
+    box-shadow: 0 0 0 4px rgba(124, 97, 255, 0.14);
+}
+
+.concept-transfer-container button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-height: 47px;
+    padding: 13px 23px;
+    border: 1px solid rgba(172, 157, 255, 0.25);
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6952e8, #8850d8);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(108, 79, 232, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.concept-transfer-container button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #7964f5, #995ce8);
+    box-shadow: 0 8px 28px rgba(124, 97, 255, 0.32);
+}
+
+.concept-transfer-container button:focus-visible {
+    outline: 3px solid #a89aff;
+    outline-offset: 3px;
+}
+
+.concept-transfer-container button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.concept-transfer-help {
+    margin: 5px 0;
+    padding: 15px 17px;
+    border: 1px solid #225d4c;
+    border-radius: 10px;
+    background: rgba(22, 101, 70, 0.15);
+    color: #7ce6b0;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.concept-transfer-error {
+    margin: 18px 0;
+    padding: 15px 18px;
+    border: 1px solid #733448;
+    border-left: 4px solid #ff5d7d;
+    border-radius: 10px;
+    background: rgba(127, 29, 55, 0.2);
+    color: #ff9eaf;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.concept-transfer-results {
+    margin-top: 34px;
+    padding: 28px;
+    border: 1px solid #30375c;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #151b34, #101529);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+}
+
+.concept-transfer-results h2 {
+    margin: 0 0 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #303655;
+    color: #c4b8ff;
+    font-size: 25px;
+    line-height: 1.4;
+}
+
+.concept-transfer-results h2:not(:first-child) {
+    margin-top: 35px;
+}
+
+.concept-transfer-results h3 {
+    margin: 24px 0 10px;
+    color: #a99aff;
+    font-size: 19px;
+    line-height: 1.5;
+}
+
+.concept-transfer-results p {
+    margin: 0;
+    color: #c0c8df;
+    font-size: 16px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.concept-transfer-results h3 + p {
+    padding: 16px 18px;
+    border: 1px solid #2d3556;
+    border-radius: 10px;
+    background: rgba(9, 14, 30, 0.65);
+}
+
+.concept-practice-question {
+    margin: 14px 0;
+    padding: 19px 20px;
+    border: 1px solid #333c63;
+    border-left: 4px solid #8c73ff;
+    border-radius: 12px;
+    background: #11172c;
+    color: #d3d9ed;
+    font-size: 16px;
+    line-height: 1.85;
+    overflow-wrap: anywhere;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.concept-practice-question:hover {
+    border-color: #6759aa;
+    transform: translateY(-1px);
+}
+
+.concept-practice-question strong {
+    color: #c5b8ff;
+}
+
+.concept-transfer-container .concept-transfer-back {
+    margin-top: 12px;
+    background: #171d35;
+    color: #c7c5ff;
+    border: 1px solid #424875;
+    box-shadow: none;
+}
+
+.concept-transfer-container .concept-transfer-back:hover {
+    background: #232747;
+    border-color: #8573ef;
+    box-shadow: 0 5px 18px rgba(108, 79, 232, 0.12);
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+    .concept-transfer-page {
+        padding: 30px 16px;
+    }
+
+    .concept-transfer-container {
+        padding: 28px 22px;
+        border-radius: 18px;
+    }
+
+    .concept-transfer-container form {
+        padding: 20px;
+    }
+
+    .concept-transfer-results {
+        padding: 22px 18px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .concept-transfer-page {
+        padding: 18px 10px;
+    }
+
+    .concept-transfer-container {
+        padding: 23px 15px;
+        border-radius: 15px;
+    }
+
+    .concept-transfer-container h1 {
+        font-size: 27px;
+    }
+
+    .concept-transfer-intro {
+        font-size: 15px;
+    }
+
+    .concept-transfer-container form {
+        padding: 17px 13px;
+    }
+
+    .concept-transfer-container button {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .concept-transfer-results {
+        padding: 20px 14px;
+    }
+
+    .concept-transfer-results h2 {
+        font-size: 22px;
+    }
+
+    .concept-transfer-results h3 {
+        font-size: 18px;
+    }
+
+    .concept-practice-question {
+        padding: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .concept-transfer-container button,
+    .concept-transfer-container input,
+    .concept-transfer-container select,
+    .concept-practice-question {
+        transition: none;
+    }
+}

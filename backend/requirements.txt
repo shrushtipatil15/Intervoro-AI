@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+motor
+pymongo
+python-dotenv
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+email-validator
+google-generativeai
+bcrypt==4.0.1
+pypdf
+python-docx
+google-genai 
