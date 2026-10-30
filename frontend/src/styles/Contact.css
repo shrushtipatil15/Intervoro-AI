@@ -1,0 +1,333 @@
+
+/* ================================
+   CONTACT PAGE
+================================ */
+
+.contact-page {
+    min-height: 100vh;
+    padding: 70px 7% 85px;
+    box-sizing: border-box;
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(49, 94, 251, 0.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 65%,
+            rgba(128, 56, 236, 0.10),
+            transparent 32%
+        ),
+        #080b18;
+    color: #ffffff;
+}
+
+/* Header */
+
+.contact-header {
+    max-width: 750px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.contact-header h1 {
+    margin: 0 0 16px;
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #b9c8ff,
+        #c9a7ff
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.contact-header p {
+    margin: 0;
+    color: #aab3d0;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Main layout */
+
+.contact-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 35px;
+    align-items: stretch;
+}
+
+/* Contact information card */
+
+.contact-info {
+    padding: 35px 30px;
+    border: 1px solid rgba(133, 151, 255, 0.17);
+    border-radius: 22px;
+    background: linear-gradient(
+        145deg,
+        rgba(22, 29, 57, 0.96),
+        rgba(13, 17, 36, 0.98)
+    );
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+.contact-info h2,
+.contact-form h2 {
+    margin: 0 0 30px;
+    color: #f4f5ff;
+    font-size: 25px;
+    font-weight: 750;
+}
+
+/* Individual information rows */
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 25px;
+    padding: 18px;
+    border: 1px solid rgba(133, 151, 255, 0.10);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.025);
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.info-box:last-child {
+    margin-bottom: 0;
+}
+
+.info-box:hover {
+    transform: translateX(5px);
+    border-color: rgba(128, 115, 255, 0.45);
+    background: rgba(80, 83, 180, 0.08);
+}
+
+/* Contact icons */
+
+.info-box > svg {
+    flex-shrink: 0;
+    width: 23px;
+    height: 23px;
+    padding: 14px;
+    box-sizing: content-box;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        rgba(49, 94, 251, 0.22),
+        rgba(128, 56, 236, 0.25)
+    );
+    color: #a99bff;
+}
+
+.info-box h4 {
+    margin: 0 0 7px;
+    color: #f0f1ff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.info-box p {
+    margin: 0;
+    color: #aab3d0;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+/* Contact form card */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    padding: 35px;
+    border: 1px solid rgba(133, 151, 255, 0.17);
+    border-radius: 22px;
+    background: linear-gradient(
+        145deg,
+        rgba(22, 29, 57, 0.96),
+        rgba(13, 17, 36, 0.98)
+    );
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form h2 {
+    margin-bottom: 25px;
+}
+
+/* Form fields */
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 15px 17px;
+    border: 1px solid rgba(133, 151, 255, 0.20);
+    border-radius: 12px;
+    outline: none;
+    background: #0d1328;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.contact-form input {
+    min-height: 50px;
+}
+
+.contact-form textarea {
+    min-height: 135px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #7f8aa9;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #7774ff;
+    background: #101831;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
+}
+
+/* Send button */
+
+.contact-form button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 3px;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(110deg, #315efb, #8038ec);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(76, 70, 230, 0.22);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.contact-form button svg {
+    font-size: 14px;
+}
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(76, 70, 230, 0.35);
+    filter: brightness(1.08);
+}
+
+.contact-form button:active {
+    transform: translateY(0);
+}
+
+.contact-form button:focus-visible {
+    outline: 2px solid #b9a8ff;
+    outline-offset: 4px;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+    .contact-page {
+        padding: 60px 5%;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+        gap: 25px;
+    }
+
+    .contact-header {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact-page {
+        padding: 45px 18px 60px;
+    }
+
+    .contact-header h1 {
+        font-size: 34px;
+    }
+
+    .contact-header p {
+        font-size: 14px;
+    }
+
+    .contact-info,
+    .contact-form {
+        padding: 25px 20px;
+        border-radius: 17px;
+    }
+
+    .contact-info h2,
+    .contact-form h2 {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    .info-box {
+        gap: 13px;
+        padding: 14px;
+    }
+
+    .info-box > svg {
+        width: 19px;
+        height: 19px;
+        padding: 11px;
+    }
+
+    .info-box p {
+        font-size: 13px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .info-box,
+    .contact-form button {
+        transition: none;
+    }
+
+    .info-box:hover,
+    .contact-form button:hover {
+        transform: none;
+    }
+}

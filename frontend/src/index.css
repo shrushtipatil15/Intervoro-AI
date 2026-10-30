@@ -1,0 +1,228 @@
+/* ==========================================
+   GOOGLE FONT
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+
+/* ==========================================
+   COLOR VARIABLES
+========================================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-hover:#3b82f6;
+
+    --secondary:#7c3aed;
+
+    --background:#08111f;
+
+    --surface:#111827;
+
+    --card:#1f2937;
+
+    --border:#334155;
+
+    --text:#ffffff;
+
+    --text-secondary:#9ca3af;
+
+    --success:#22c55e;
+
+    --danger:#ef4444;
+
+    --warning:#f59e0b;
+
+    --shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+/* ==========================================
+   HTML & BODY
+========================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--background);
+
+    color:var(--text);
+
+    font-family:"Libre Baskerville", serif;
+
+    overflow-x:hidden;
+
+    line-height:1.6;
+
+}
+/* Fix content hiding behind fixed navbar */
+
+.page-container {
+    padding-top: 90px;   /* Navbar height + spacing */
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+/* ==========================================
+   ROOT
+========================================== */
+
+#root{
+
+    width:100%;
+
+    min-height:100vh;
+
+}
+
+/* ==========================================
+   HEADINGS
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+
+    color:var(--text);
+
+    font-weight:700;
+
+}
+
+/* ==========================================
+   PARAGRAPHS
+========================================== */
+
+p{
+
+    color:var(--text-secondary);
+
+}
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+button{
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+input,
+textarea,
+select{
+
+    font-family:inherit;
+
+    border:none;
+
+    outline:none;
+
+}
+
+/* ==========================================
+   IMAGES
+========================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* ==========================================
+   LISTS
+========================================== */
+
+ul,
+ol{
+
+    list-style:none;
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:var(--background);
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary-hover);
+
+}
+
+/* ==========================================
+   TEXT SELECTION
+========================================== */
+
+::selection{
+
+    background:var(--primary);
+
+    color:white;
+
+}

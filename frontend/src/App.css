@@ -1,0 +1,7 @@
+/* Fix content hiding behind fixed navbar */
+
+.page-container {
+    padding-top: 90px;   /* Navbar height + spacing */
+    min-height: 100vh;
+    box-sizing: border-box;
+}
