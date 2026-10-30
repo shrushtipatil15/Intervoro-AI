@@ -18,8 +18,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-          "http://localhost:5173",
-        "https://intervoro-ai-frontend.onrender.com",
+        "http://localhost:5173",
+        "https://intervoro-ai-frontend-dm79.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
