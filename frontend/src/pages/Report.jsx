@@ -1,7 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api/axios";
 import "../styles/Report.css";
 
 function Report() {
@@ -20,21 +19,17 @@ function Report() {
                 setLoading(true);
                 setError("");
 
-                const token = localStorage.getItem("token");
-
-                const response = await axios.get(
-                    `http://localhost:8000/api/interview/result/${id}`,
-                    {
-                        headers: token
-                            ? { Authorization: `Bearer ${token}` }
-                            : {},
-                    }
+                // Uses the deployed backend URL from api/axios.js
+                const response = await API.get(
+                    `/interview/result/${id}`
                 );
 
                 if (!cancelled) {
                     setReport(response.data);
                 }
             } catch (err) {
+                console.error("Report loading error:", err);
+
                 if (!cancelled) {
                     setError(
                         err.response?.data?.detail ||
@@ -79,7 +74,9 @@ function Report() {
                 <div className="report-status report-error">
                     <div className="error-icon">!</div>
                     <h2>Report Unavailable</h2>
-                    <p>{error || "No report data was found."}</p>
+                    <p>
+                        {error || "No report data was found."}
+                    </p>
 
                     <button
                         className="report-button"
@@ -93,7 +90,7 @@ function Report() {
     }
 
     // Deduplicate repeated submissions using question text.
-    // If a question was answered multiple times, keep its latest occurrence.
+    // Keep the latest answer for each question.
     const answers = (() => {
         const allAnswers = Array.isArray(report.answers)
             ? report.answers
@@ -116,19 +113,20 @@ function Report() {
         return Array.from(uniqueAnswers.values());
     })();
 
-    // Calculate all score statistics from unique answers.
+    // Calculate score statistics from unique answers.
     const normalizedScores = answers.map((answer) =>
         Math.max(0, Math.min(10, Number(answer.score) || 0))
     );
 
     const averageScore = normalizedScores.length
-        ? normalizedScores.reduce((sum, score) => sum + score, 0) /
-          normalizedScores.length
+        ? normalizedScores.reduce(
+              (sum, score) => sum + score,
+              0
+          ) / normalizedScores.length
         : 0;
 
     const performance = Math.round(averageScore * 10);
 
-    // Do not use report.total_questions because it may include duplicates.
     const totalQuestions = answers.length;
 
     const totalScore = normalizedScores.reduce(
@@ -199,12 +197,15 @@ function Report() {
                         <div className="summary-icon purple-icon">
                             <span>★</span>
                         </div>
+
                         <div>
                             <p>Average Score</p>
+
                             <h2>
                                 {averageScore.toFixed(1)}
                                 <small>/10</small>
                             </h2>
+
                             <span className="summary-caption">
                                 {getPerformanceLabel(averageScore)}
                             </span>
@@ -215,12 +216,15 @@ function Report() {
                         <div className="summary-icon blue-icon">
                             <span>✓</span>
                         </div>
+
                         <div>
                             <p>Total Score</p>
+
                             <h2>
                                 {totalScore}
                                 <small> points</small>
                             </h2>
+
                             <span className="summary-caption">
                                 Across evaluated answers
                             </span>
@@ -231,9 +235,11 @@ function Report() {
                         <div className="summary-icon cyan-icon">
                             <span>Q</span>
                         </div>
+
                         <div>
                             <p>Questions</p>
                             <h2>{totalQuestions}</h2>
+
                             <span className="summary-caption">
                                 In this interview
                             </span>
@@ -244,12 +250,15 @@ function Report() {
                         <div className="summary-icon green-icon">
                             <span>↑</span>
                         </div>
+
                         <div>
                             <p>Best Answer</p>
+
                             <h2>
                                 {bestScore}
                                 <small>/10</small>
                             </h2>
+
                             <span className="summary-caption">
                                 Highest question score
                             </span>
@@ -261,8 +270,12 @@ function Report() {
                 <section className="report-panel performance-section">
                     <div className="section-heading">
                         <div>
-                            <span className="section-eyebrow">OVERVIEW</span>
+                            <span className="section-eyebrow">
+                                OVERVIEW
+                            </span>
+
                             <h2>Overall Performance</h2>
+
                             <p>
                                 Your average answer score converted to a percentage.
                             </p>
@@ -286,7 +299,9 @@ function Report() {
                             >
                                 <div
                                     className="progress-fill"
-                                    style={{ width: `${performance}%` }}
+                                    style={{
+                                        width: `${performance}%`,
+                                    }}
                                 />
                             </div>
 
@@ -328,11 +343,13 @@ function Report() {
                             <span>Highest score</span>
                             <strong>{bestScore}/10</strong>
                         </div>
+
                         <div>
                             <span className="stat-dot lowest-dot" />
                             <span>Lowest score</span>
                             <strong>{lowestScore}/10</strong>
                         </div>
+
                         <div>
                             <span className="stat-dot average-dot" />
                             <span>Average score</span>
@@ -348,7 +365,9 @@ function Report() {
                             <span className="section-eyebrow">
                                 SCORE BREAKDOWN
                             </span>
+
                             <h2>Question-wise Performance</h2>
+
                             <p>
                                 See how you performed on each evaluated answer.
                             </p>
@@ -370,7 +389,9 @@ function Report() {
                                                 Question {index + 1}
                                             </span>
 
-                                            <strong className={getScoreClass(score)}>
+                                            <strong
+                                                className={getScoreClass(score)}
+                                            >
                                                 {score}/10
                                             </strong>
                                         </div>
@@ -411,6 +432,7 @@ function Report() {
                     <article className="report-panel feedback-card strengths-card">
                         <div className="feedback-heading">
                             <div className="feedback-icon">✓</div>
+
                             <div>
                                 <h2>Strengths</h2>
                                 <p>Areas where you performed well</p>
@@ -436,6 +458,7 @@ function Report() {
                     <article className="report-panel feedback-card weaknesses-card">
                         <div className="feedback-heading">
                             <div className="feedback-icon">↗</div>
+
                             <div>
                                 <h2>Areas to Improve</h2>
                                 <p>Topics to focus on next</p>
@@ -464,8 +487,12 @@ function Report() {
                 <section className="report-panel detailed-feedback">
                     <div className="section-heading">
                         <div>
-                            <span className="section-eyebrow">AI EVALUATION</span>
+                            <span className="section-eyebrow">
+                                AI EVALUATION
+                            </span>
+
                             <h2>Detailed Answer Feedback</h2>
+
                             <p>
                                 Review the feedback for each answer and learn
                                 what you can improve.
@@ -486,9 +513,15 @@ function Report() {
                                         <div className="answer-header">
                                             <div className="answer-title">
                                                 <span className="answer-number">
-                                                    {String(index + 1).padStart(2, "0")}
+                                                    {String(index + 1).padStart(
+                                                        2,
+                                                        "0"
+                                                    )}
                                                 </span>
-                                                <h3>Question {index + 1}</h3>
+
+                                                <h3>
+                                                    Question {index + 1}
+                                                </h3>
                                             </div>
 
                                             <span
@@ -500,6 +533,7 @@ function Report() {
 
                                         <div className="answer-content">
                                             <h4>Your Question</h4>
+
                                             <p>
                                                 {answer.question ||
                                                     "Question text is unavailable."}
@@ -508,6 +542,7 @@ function Report() {
 
                                         <div className="answer-content">
                                             <h4>Your Answer</h4>
+
                                             <p>
                                                 {answer.answer ||
                                                     "No answer text is available."}
@@ -518,6 +553,7 @@ function Report() {
                                             <h4>
                                                 <span>✦</span> AI Feedback
                                             </h4>
+
                                             <p>
                                                 {answer.feedback ||
                                                     "No detailed feedback is available for this answer."}
@@ -529,7 +565,10 @@ function Report() {
                                                 <h4>
                                                     Suggested Answer / Key Concepts
                                                 </h4>
-                                                <p>{answer.correct_answer}</p>
+
+                                                <p>
+                                                    {answer.correct_answer}
+                                                </p>
                                             </div>
                                         )}
                                     </article>
