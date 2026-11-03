@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
@@ -112,6 +111,7 @@ function InterviewHistory() {
         navigate(`/report/${interview.interview_id}`);
     };
 
+    // Convert backend UTC timestamps to Indian Standard Time.
     const getDate = (interview) => {
         const value =
             interview.created_at ||
@@ -120,11 +120,34 @@ function InterviewHistory() {
 
         if (!value) return "Date unavailable";
 
-        const date = new Date(value);
+        let dateValue = value;
 
-        return Number.isNaN(date.getTime())
-            ? "Date unavailable"
-            : date.toLocaleString();
+        // Backend datetime.utcnow() may return a timestamp
+        // without Z or timezone information. Treat it as UTC.
+        if (
+            typeof dateValue === "string" &&
+            !dateValue.endsWith("Z") &&
+            !/[+-]\d{2}:\d{2}$/.test(dateValue)
+        ) {
+            dateValue += "Z";
+        }
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Date unavailable";
+        }
+
+        return date.toLocaleString("en-IN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+            timeZone: "Asia/Kolkata",
+        });
     };
 
     return (
