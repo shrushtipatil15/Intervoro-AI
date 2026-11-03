@@ -159,8 +159,15 @@ async def get_result(
         )
 
     total_questions = len(answers)
-    total_score = sum(answer["score"] for answer in answers)
-    average_score = round(total_score / total_questions, 2)
+
+    total_score = sum(
+        float(answer.get("score", 0))
+        for answer in answers
+    )
+
+    average_score = round(
+        total_score / total_questions, 2
+    )
 
     if average_score >= 9:
         grade = "A+"
@@ -177,10 +184,10 @@ async def get_result(
     weaknesses = []
 
     for answer in answers:
-        if answer["score"] >= 8:
-            strengths.append(answer["question"])
+        if float(answer.get("score", 0)) >= 8:
+            strengths.append(answer.get("question", ""))
         else:
-            weaknesses.append(answer["question"])
+            weaknesses.append(answer.get("question", ""))
 
     report_data = {
         "interview_id": interview_id,
@@ -255,12 +262,12 @@ async def get_report(
     return {
         "report_id": str(report["_id"]),
         "interview_id": report["interview_id"],
-        "average_score": report["average_score"],
-        "total_score": report["total_score"],
-        "grade": report["grade"],
-        "strengths": report["strengths"],
-        "weaknesses": report["weaknesses"],
-        "created_at": report["created_at"]
+        "average_score": report.get("average_score"),
+        "total_score": report.get("total_score"),
+        "grade": report.get("grade"),
+        "strengths": report.get("strengths", []),
+        "weaknesses": report.get("weaknesses", []),
+        "created_at": report.get("created_at")
     }
 
 
@@ -288,6 +295,80 @@ async def get_interview_history(
             "interview_id": interview_id,
             "user_id": current_user["id"]
         })
+
+        answers = list(
+            answers_collection.find({
+                "interview_id": interview_id,
+                "user_id": current_user["id"]
+            }).sort("question_number", 1)
+        )
+
+        # Recover missing report/grade from saved answers
+        if answers and (
+            not report or not report.get("grade")
+        ):
+            total_questions = len(answers)
+
+            total_score = sum(
+                float(answer.get("score", 0))
+                for answer in answers
+            )
+
+            average_score = round(
+                total_score / total_questions, 2
+            )
+
+            if average_score >= 9:
+                grade = "A+"
+            elif average_score >= 8:
+                grade = "A"
+            elif average_score >= 7:
+                grade = "B"
+            elif average_score >= 6:
+                grade = "C"
+            else:
+                grade = "D"
+
+            strengths = [
+                answer.get("question", "")
+                for answer in answers
+                if float(answer.get("score", 0)) >= 8
+            ]
+
+            weaknesses = [
+                answer.get("question", "")
+                for answer in answers
+                if float(answer.get("score", 0)) < 8
+            ]
+
+            report_data = {
+                "interview_id": interview_id,
+                "user_id": current_user["id"],
+                "average_score": average_score,
+                "total_score": total_score,
+                "grade": grade,
+                "strengths": strengths,
+                "weaknesses": weaknesses
+            }
+
+            reports_collection.update_one(
+                {
+                    "interview_id": interview_id,
+                    "user_id": current_user["id"]
+                },
+                {
+                    "$set": report_data,
+                    "$setOnInsert": {
+                        "created_at": datetime.utcnow()
+                    }
+                },
+                upsert=True
+            )
+
+            report = reports_collection.find_one({
+                "interview_id": interview_id,
+                "user_id": current_user["id"]
+            })
 
         history.append({
             "interview_id": interview_id,
@@ -344,7 +425,6 @@ async def get_answered_questions(
         }).sort("submitted_at", -1)
     )
 
-    # Include only question numbers that have saved answers.
     answered_numbers = {
         answer["question_number"]
         for answer in saved_answers

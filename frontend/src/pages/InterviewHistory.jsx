@@ -25,18 +25,22 @@ function InterviewHistory() {
                     localStorage.getItem("access_token");
 
                 if (!token) {
-                    setError("Please log in to view your interview history.");
+                    setError(
+                        "Please log in to view your interview history."
+                    );
                     return;
                 }
 
                 const response = await API.get("/interview/history");
                 const data = response.data;
 
-                setInterviews(
-                    Array.isArray(data)
-                        ? data
-                        : data.interviews || data.history || []
-                );
+                console.log("Interview History Data:", data);
+
+                const history = Array.isArray(data)
+                    ? data
+                    : data.interviews || data.history || [];
+
+                setInterviews(history);
             } catch (err) {
                 console.error(
                     "Interview history error:",
@@ -62,18 +66,45 @@ function InterviewHistory() {
         fetchHistory();
     }, []);
 
+    const getGrade = (interview) => {
+        const possibleGrades = [
+            interview.grade,
+            interview.report?.grade,
+            interview.result?.grade,
+            interview.evaluation?.grade,
+            interview.feedback?.grade,
+            interview.overall_grade,
+            interview.final_grade,
+            interview.report?.overall_grade,
+            interview.evaluation?.overall_grade,
+        ];
+
+        const grade = possibleGrades.find(
+            (value) =>
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+        );
+
+        return grade ?? "Not available";
+    };
+
     const copyInterviewId = async (id) => {
         try {
             await navigator.clipboard.writeText(String(id));
             alert("Interview ID copied!");
         } catch {
-            alert("Unable to copy the ID. Please copy it manually.");
+            alert(
+                "Unable to copy the ID. Please copy it manually."
+            );
         }
     };
 
     const openPractice = (interview) => {
         navigate("/concept-transfer", {
-            state: { interviewId: interview.interview_id },
+            state: {
+                interviewId: interview.interview_id,
+            },
         });
     };
 
@@ -98,7 +129,9 @@ function InterviewHistory() {
 
     return (
         <div className="history-page">
-            <h1 className="history-heading">Interview History</h1>
+            <h1 className="history-heading">
+                Interview History
+            </h1>
 
             <p className="history-subtitle">
                 Review your previous interviews and practise your weak concepts.
@@ -141,7 +174,8 @@ function InterviewHistory() {
                                         </h2>
 
                                         <span className="history-badge">
-                                            {interview.difficulty || "Standard"}
+                                            {interview.difficulty ||
+                                                "Standard"}
                                         </span>
                                     </div>
 
@@ -150,10 +184,9 @@ function InterviewHistory() {
                                             <span className="history-info-label">
                                                 Grade
                                             </span>
+
                                             <span className="history-info-value">
-                                                {interview.grade ||
-                                                    interview.report?.grade ||
-                                                    "—"}
+                                                {getGrade(interview)}
                                             </span>
                                         </div>
 
@@ -161,6 +194,7 @@ function InterviewHistory() {
                                             <span className="history-info-label">
                                                 Date
                                             </span>
+
                                             <span className="history-info-value">
                                                 {getDate(interview)}
                                             </span>
@@ -170,9 +204,14 @@ function InterviewHistory() {
                                             <span className="history-info-label">
                                                 Technology
                                             </span>
+
                                             <span className="history-info-value">
-                                                {Array.isArray(interview.technology)
-                                                    ? interview.technology.join(", ")
+                                                {Array.isArray(
+                                                    interview.technology
+                                                )
+                                                    ? interview.technology.join(
+                                                          ", "
+                                                      )
                                                     : interview.technology ||
                                                       interview.job_role ||
                                                       interview.role ||
@@ -184,6 +223,7 @@ function InterviewHistory() {
                                             <span className="history-info-label">
                                                 Experience
                                             </span>
+
                                             <span className="history-info-value">
                                                 {interview.experience_level ||
                                                     interview.experience ||
@@ -196,6 +236,7 @@ function InterviewHistory() {
                                         <span className="history-interview-id-label">
                                             Interview ID
                                         </span>
+
                                         <span className="history-interview-id-value">
                                             {id || "ID unavailable"}
                                         </span>
@@ -206,7 +247,9 @@ function InterviewHistory() {
                                             <button
                                                 type="button"
                                                 className="history-action"
-                                                onClick={() => copyInterviewId(id)}
+                                                onClick={() =>
+                                                    copyInterviewId(id)
+                                                }
                                             >
                                                 Copy ID
                                             </button>
@@ -214,7 +257,9 @@ function InterviewHistory() {
                                             <button
                                                 type="button"
                                                 className="history-action"
-                                                onClick={() => openReport(interview)}
+                                                onClick={() =>
+                                                    openReport(interview)
+                                                }
                                             >
                                                 View Report
                                             </button>
@@ -222,7 +267,9 @@ function InterviewHistory() {
                                             <button
                                                 type="button"
                                                 className="history-action"
-                                                onClick={() => openPractice(interview)}
+                                                onClick={() =>
+                                                    openPractice(interview)
+                                                }
                                             >
                                                 Practice This Interview
                                             </button>
